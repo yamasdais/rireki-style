@@ -284,6 +284,8 @@
 \def\年齢#1{\def\@年齢{#1}}
 \def\本籍#1{\def\@本籍{#1}}			% 旧版との互換性のため
 \def\顔写真#1{\def\@顔写真{#1}}
+\def\携帯電話番号#1{\def\@携帯電話番号{#1}}
+\def\EMailAddress#1{\def\@EMailAddress{#1}}
 %
 % 現住所
 %
@@ -293,6 +295,8 @@
 \def\現住所市外局番#1{\def\@現住所市外局番{#1}}
 \def\現住所電話番号#1{\def\@現住所電話番号{#1}}
 \def\現住所呼び出し#1{\def\@現住所呼び出し{#1}}
+\def\現住所FAX市外局番#1{\def\@現住所FAX市外局番{#1}}
+\def\現住所FAX番号#1{\def\@現住所FAX番号{#1}}
 %
 % 連絡先
 %
@@ -301,6 +305,8 @@
 \def\連絡先読み#1{\def\@連絡先読み{#1}}
 \def\連絡先市外局番#1{\def\@連絡先市外局番{#1}}
 \def\連絡先電話番号#1{\def\@連絡先電話番号{#1}}
+\def\連絡先FAX市外局番#1{\def\@連絡先FAX市外局番{#1}}
+\def\連絡先FAX番号#1{\def\@連絡先FAX番号{#1}}
 \def\連絡先呼び出し#1{\def\@連絡先呼び出し{#1}}
 %
 % 学歴、職歴、資格
@@ -322,6 +328,7 @@
 % その他
 %
 \def\通勤時間#1{\def\@通勤時間{#1}}
+\def\最寄駅#1{\def\@最寄駅{#1}}
 \def\扶養家族数#1{\def\@扶養家族数{#1}}
 \def\配偶者#1{\def\@配偶者{#1}}
 \def\配偶者の扶養義務#1{\def\@配偶者の扶養義務{#1}}
@@ -347,7 +354,7 @@
 % 各種定数
 %
 \def\枠の幅{149.5}
-\def\名前欄の幅{98}
+\def\名前欄の幅{113}
 \def\住所欄の幅{117}
 \def\ふりがな欄の高さ{5}
 \def\写真縦{40}
@@ -366,10 +373,10 @@
 \SetPos(0,0) {
 	\def\枠の高さ{66.5}
 	\Put(0,-1){\makebox(25,5)[t]{\Large \bf 履\hspace{5mm}歴\hspace{5mm}書}}
-	\Put(70,-1){\makebox(25,3)[t]{\scriptsize \today 現在}}
+	\Put(84,-1){\makebox(25,3)[t]{\scriptsize \today 現在}}
 	\Sub{\写真横}{2}{\w}
 	\Sub{\写真縦}{2}{\h}
-	\Put(103.5,28.5){\dashbox{.5}(\w,\h)[c]{\parbox{\w mm}{\center\scriptsize 写真をはる位置\\\vspace{1mm}(縦\写真縦 mm, 横\写真横 mm)}}}
+	\Put(118.5,28.5){\dashbox{.5}(\w,\h)[c]{\parbox{\w mm}{\center\scriptsize 写真をはる位置\\\vspace{1mm}(縦\写真縦 mm, 横\写真横 mm)}}}
 	\ifx\@顔写真\empty\else
 		\Put(103.5,28.5){\includegraphics[height=4cm]{\@顔写真}}
 	\fi
@@ -381,7 +388,7 @@
 	\Add{\枠の幅}{0.5}{\w}
 	\Put(-0.25,\枠の高さ){\line(1,0){\w}}
 	\Put(\名前欄の幅,0){\line(0,-1){31.5}}
-	\Put(\名前欄の幅,31.31){\line(1,0){51.75}}
+	\Put(\名前欄の幅,31.31){\line(1,0){36.75}}
 	\Put(\枠の幅,31.0){\line(0,-1){35.5}}
 	%
 	\linethickness{0.1mm}
@@ -398,52 +405,84 @@
 	\Put(0,0){\line(1,0){\名前欄の幅}}
 	\def\@editbuf{
 		\ifx\@年齢\empty\else
-			{\hspace{3mm}（満\hspace{2mm}\@年齢 才）}
+			{\hspace{3mm}（満\hspace{2mm}\@年齢 歳）}
 		\fi
 	}
 	\ifx\@誕生日\empty\else
-		\Put(0,12){\makebox(85.5,12)[c]{\@誕生日 生\@editbuf}}
+		\Put(0,7){\makebox(85.5,7)[c]{\@誕生日 生\@editbuf}}
 	\fi
-	\Put(85.5,0){\line(0,-1){12}}
-	\Put(85.5,5){\makebox(12.5,5)[l]{\hspace{2mm}\scriptsize 性別}}
-	\Put(85.5,14){\makebox(12.5,12)[c]{\small \@性別}}
+	\Put(85.5,0){\line(0,-1){7}}
+	\Put(85.5,6){\makebox(12.5,5)[l]{\hspace{2mm}\scriptsize 性別
+       \hspace{3mm} \small \@性別
+    }}
+%	\Put(85.5,14){\makebox(12.5,12)[c]{\small \@性別}}
+}
+\SetPos(0,26.5) {
+ \Put(0,0){\line(1,0){\名前欄の幅}}
+ \Put(45,0){\line(0,-1){5}}
+ \Put(0,5){\dashbox{.5}(15,5)[c]{\scriptsize 携帯電話番号}}
+ \Put(15,5){\makebox(30,5)[c]{\small \@携帯電話番号}}
+ \Put(45,5){\dashbox{.5}(14,5)[c]{\scriptsize E-MAIL}}
+ \Put(59,5){\makebox(54,5)[c]{\small \@EMailAddress}}
 }
 \SetPos(0,31.5) {
 	\Put(0,0){\line(1,0){\名前欄の幅}}
-	\Put(0,\ふりがな欄の高さ){\dashbox{.5}(\住所欄の幅,\ふりがな欄の高さ)[l]{\scriptsize \hspace{2mm}ふりがな \hspace{10mm} \@現住所読み}}
+	\Put(0,\ふりがな欄の高さ){\dashbox{.5}(\名前欄の幅,\ふりがな欄の高さ)[l]{\scriptsize \hspace{2mm}ふりがな \hspace{10mm} \@現住所読み}}
 	\Put(0,10){\makebox(\住所欄の幅,5)[l]{\scriptsize \hspace{2mm}現\hspace{1mm}住\hspace{1mm}所\hspace{3mm}〒\hspace{2mm}\@現住所郵便番号}}
 	\Put(0,17.5){\makebox(\住所欄の幅,11.5)[c]{\normalsize \@現住所}}
 }
-\SetPos(\住所欄の幅,31.5) {
+\SetPos(\名前欄の幅,31.5) {
 	\Put(0,0){\line(0,-1){35.0}}
-	\Put(0,3.5){\makebox(32.5,3.5)[l]{\scriptsize \hspace{2mm}電話}}
 	\def\@editbuf{
 		\normalsize
 		\ifx\@現住所市外局番\empty\else
 			{\hspace{2mm}(\hspace{1mm}\@現住所市外局番\hspace{1mm})}
 		\fi
-	}
-	\Put(0,7){\makebox(32.5,3.5)[l]{\scriptsize \hspace{2mm}市外局番\@editbuf}}
-	\Put(0,12){\dashbox{.5}(32.5,5)[c]{\normalsize \@現住所電話番号}}
-	\Put(0,17){\makebox(32.5,5)[c]{\normalsize \@現住所呼び出し}}
+    }
+    \Put(0,9){\dashbox{.5}(36.5,9)[l]}
+	\Put(0,3.8){\makebox(32.5,3.5)[l]{\scriptsize \hspace{2mm}電話 \@editbuf}}
+    \Put(0,8.5){\makebox(32.5,5)[c]{\normalsize \@現住所電話番号}}
+%	\Put(0,7){\makebox(32.5,3.5)[l]{\scriptsize \hspace{2mm}市外局番\@editbuf}}
+%	\Put(0,12){\dashbox{.5}(32.5,5)[c]{\normalsize \@現住所電話番号}}
+ %	\Put(0,17){\makebox(32.5,5)[c]{\normalsize \@現住所呼び出し}}
+	\def\@editbuf{
+		\normalsize
+		\ifx\@現住所FAX市外局番\empty\else
+			{\hspace{1mm}(\hspace{1mm}\@現住所FAX市外局番\hspace{1mm})}
+		\fi
+    }
+ \Put(0,12.8){\makebox(32.5,3.5)[l]{\scriptsize \hspace{2mm}FAX \@editbuf}}
+ \Put(0,17.5){\makebox(32.5,5)[c]{\normalsize \@現住所FAX番号}}
 }
 \SetPos(0,49) {
 	\Put(0,0){\line(1,0){\枠の幅}}
-	\Put(0,\ふりがな欄の高さ){\dashbox{.5}(\住所欄の幅,\ふりがな欄の高さ)[l]{\scriptsize \hspace{2mm}ふりがな \hspace{10mm} \@連絡先読み}}
+	\Put(0,\ふりがな欄の高さ){\dashbox{.5}(\名前欄の幅,\ふりがな欄の高さ)[l]{\scriptsize \hspace{2mm}ふりがな \hspace{10mm} \@連絡先読み}}
 	\Put(0,10){\makebox(\住所欄の幅,5)[l]{\scriptsize \hspace{2mm}連\hspace{1mm}絡\hspace{1mm}先\hspace{3mm}〒\hspace{2mm}\@連絡先郵便番号}}
-	\Put(0,17.5){\makebox(\住所欄の幅,11.5)[c]{\normalsize \@連絡先}}
+ \Put(45,10){\makebox(30,5)[l]{
+ \scriptsize （現住所以外に連絡を希望する場合のみ記入）}}
+ \Put(0,18){\makebox(\住所欄の幅,11.5)[c]{\normalsize \@連絡先}}
 }
-\SetPos(\住所欄の幅,49) {
-	\Put(0,3.5){\makebox(32.5,3.5)[l]{\scriptsize \hspace{2mm}電話}}
+\SetPos(\名前欄の幅,49) {
 	\def\@editbuf{
 		\normalsize
 		\ifx\@連絡先市外局番\empty\else
 			{\hspace{2mm}(\hspace{1mm}\@連絡先市外局番\hspace{1mm})}
 		\fi
 	}
-	\Put(0,7){\makebox(32.5,3.5)[l]{\scriptsize \hspace{2mm}市外局番\@editbuf}}
-	\Put(0,12){\dashbox{.5}(32.5,5)[c]{\normalsize \@連絡先電話番号}}
-	\Put(0,17){\makebox(32.5,5)[c]{\normalsize \@連絡先呼び出し}}
+    \Put(0,9){\dashbox{.5}(36.5,9)[l]}
+	\Put(0,3.8){\makebox(32.5,3.5)[l]{\scriptsize \hspace{2mm}電話 \@editbuf}}
+    \Put(0,8.5){\makebox(32.5,5)[c]{\normalsize \@連絡先電話番号}}
+%	\Put(0,7){\makebox(32.5,3.5)[l]{\scriptsize \hspace{2mm}市外局番\@editbuf}}
+%	\Put(0,12){\dashbox{.5}(32.5,5)[c]{\normalsize \@連絡先電話番号}}
+%	\Put(0,17){\makebox(32.5,5)[c]{\normalsize \@連絡先呼び出し}}
+	\def\@editbuf{
+		\normalsize
+		\ifx\@連絡先FAX市外局番\empty\else
+			{\hspace{1mm}(\hspace{1mm}\@連絡先FAX市外局番\hspace{1mm})}
+		\fi
+    }
+ \Put(0,12.8){\makebox(32.5,3.5)[l]{\scriptsize \hspace{2mm}FAX \@editbuf}}
+ \Put(0,17.5){\makebox(32.5,5)[c]{\normalsize \@連絡先FAX番号}}
 }
 %----------------
 % 学歴職歴
@@ -505,56 +544,89 @@
 % 志望の動機など
 %----------------
 \SetPos(0,115) {
-	\def\枠の高さ{51.0}
+%	\def\枠の高さ{51.0}
+ 	\def\枠の高さ{41.0}
 	\def\見出しの高さ{5}
 	\def\その他の高さ{10}
 	\def\その他の幅{37}
 	\ThickBox(\枠の幅,\枠の高さ)
-	\Put(0,\見出しの高さ){\makebox(103,\見出しの高さ)[l]{\scriptsize \hspace{1mm}志望の動機、特技、好きな学科、アピールポイントなど}}
+	\Put(0,\見出しの高さ){\makebox(103,\見出しの高さ)[l]{\scriptsize \hspace{1mm}志望の動機、アピールポイントなど}}
 	\Put(2,39.0){\makebox(141.5,31.0)[t]{\parbox{141.5 mm}{\normalsize \@志望の動機}}}
-	\Put(0,41.0){\line(1,0){\枠の幅}}
+	%\Put(0,41.0){\line(1,0){\枠の幅}}
 	% 小見出し%
-	\def\見出しの高さ{4}
-	\def\x{0}
-	\Put(\x,  45.0){\makebox(\その他の幅,\見出しの高さ)[l]{\scriptsize \hspace{1mm}通勤時間}}
-	\Add{\x}{\その他の幅}{\x}
-	\Put(\x, 51.0){\line(0,1){\その他の高さ}}
-	\Put(\x, 45.0){\makebox(\その他の幅,\見出しの高さ)[l]{\scriptsize \hspace{1mm}扶養家族数（配偶者を除く）}}
-	\Add{\x}{\その他の幅}{\x}
-	\Put(\x, 51.0){\line(0,1){\その他の高さ}}
-	\Put(\x, 45.0){\makebox(\その他の幅,\見出しの高さ)[l]{\scriptsize \hspace{1mm}配偶者}}
-	\Add{\x}{\その他の幅}{\x}
-	\Put(\x, 51.0){\line(0,1){\その他の高さ}}
-	\Put(\x,45.0){\makebox(\その他の幅,\見出しの高さ)[l]{\scriptsize \hspace{1mm}配偶者の扶養義務}}
-	%
-	\def\h{6}
-	\def\y{50}
-	\def\x{0}
-	\Put(\x,\y){\makebox(\その他の幅,\h)[c]{\normalsize \@通勤時間}}
-	\Add{\x}{\その他の幅}{\x}
-	\if\@扶養家族数\empty\else
-		\Put(\x,\y){\makebox(\その他の幅,\h)[c]{\normalsize \@扶養家族数 人}}
-	\fi
-	\Add{\x}{\その他の幅}{\x}
-	\Put(\x,\y){\makebox(\その他の幅,\h)[c]{\normalsize \@配偶者}}
-	\Add{\x}{\その他の幅}{\x}
-	\Put(\x,\y){\makebox(\その他の幅,\h)[c]{\normalsize \@配偶者の扶養義務}}
+	% \def\見出しの高さ{4}
+	% \def\x{0}
+	% \Put(\x,  45.0){\makebox(\その他の幅,\見出しの高さ)[l]{\scriptsize \hspace{1mm}通勤時間}}
+	% \Add{\x}{\その他の幅}{\x}
+	% \Put(\x, 51.0){\line(0,1){\その他の高さ}}
+	% \Put(\x, 45.0){\makebox(\その他の幅,\見出しの高さ)[l]{\scriptsize \hspace{1mm}扶養家族数（配偶者を除く）}}
+	% \Add{\x}{\その他の幅}{\x}
+	% \Put(\x, 51.0){\line(0,1){\その他の高さ}}
+	% \Put(\x, 45.0){\makebox(\その他の幅,\見出しの高さ)[l]{\scriptsize \hspace{1mm}配偶者}}
+	% \Add{\x}{\その他の幅}{\x}
+	% \Put(\x, 51.0){\line(0,1){\その他の高さ}}
+	% \Put(\x,45.0){\makebox(\その他の幅,\見出しの高さ)[l]{\scriptsize \hspace{1mm}配偶者の扶養義務}}
+	% %
+	% \def\h{6}
+	% \def\y{50}
+	% \def\x{0}
+	% \Put(\x,\y){\makebox(\その他の幅,\h)[c]{\normalsize \@通勤時間}}
+	% \Add{\x}{\その他の幅}{\x}
+	% \if\@扶養家族数\empty\else
+	% 	\Put(\x,\y){\makebox(\その他の幅,\h)[c]{\normalsize \@扶養家族数 人}}
+	% \fi
+	% \Add{\x}{\その他の幅}{\x}
+	% \Put(\x,\y){\makebox(\その他の幅,\h)[c]{\normalsize \@配偶者}}
+	% \Add{\x}{\その他の幅}{\x}
+	% \Put(\x,\y){\makebox(\その他の幅,\h)[c]{\normalsize \@配偶者の扶養義務}}
 }
 %----------------
 % 本人希望記入欄
 %----------------
 %\SetPos(0,146.0) {
-\SetPos(0,167.5) {
-	\def\枠の高さ{52}
+\SetPos(0,157.5) {
+	\def\枠の高さ{32}
 	\def\見出しの高さ{6}
 	\ThickBox(\枠の幅,\枠の高さ)
 	\Put(0,\見出しの高さ){\makebox(\枠の幅,\見出しの高さ)[l]{\scriptsize \hspace{1mm}本人希望記入欄（特に給料・職種・勤務時間・勤務地・その他についての希望があれば記入）}}
 	\Put(2,50){\makebox(141.5,42)[t]{\parbox{141.5 mm}{\normalsize \@本人希望記入欄}}}
+ }
+\SetPos(0,191) {
+	\def\枠の高さ{28}
+	\def\見出しの高さ{4}
+	\ThickBox(\枠の幅,\枠の高さ)
+	\Put(0,\見出しの高さ){\makebox(\枠の幅,\見出しの高さ)[l]{\scriptsize
+ \hspace{1mm}趣味・特技など}}
+ \Put(2,14){\makebox(141.5,10)[l]{\normalsize \@趣味}}
+ 	\linethickness{0.5mm}
+	\Put(0,14){\line(1,0){149.5}}
+ 	\linethickness{0.1mm}
+% 通勤
+	\Put(45,14){\line(0,-1){14}}
+	\Put(90,14){\line(0,-1){14}}
+	\Put(120,14){\line(0,-1){14}}
+ \Put(0,21){\makebox(12,8){\scriptsize 通勤時間}}
+ \Put(10,21){\makebox(33,8){\normalsize \@通勤時間}}
+ \Put(45,18){\makebox(45,4)[l]{\scriptsize\hspace{1mm} 扶養家族数（配偶者を除く）}}
+ \Put(90,18){\makebox(30,4)[l]{\scriptsize\hspace{1mm} 配偶者}}
+ \Put(120,18){\makebox(30,4)[l]{\scriptsize\hspace{1mm} 配偶者の扶養義務}}
+ \Put(0,28){\makebox(12,8){\scriptsize 最寄り駅}}
+ \Put(10,28){\makebox(33,8){\normalsize \@最寄駅}}
+ \if\@扶養家族数\empty\else
+ 	\Put(45,28){\makebox(45,10)[c]{\normalsize \@扶養家族数 人}}
+ \fi
+ \Put(90,28){\makebox(30,10){\normalsize \@配偶者}}
+ \Put(120,28){\makebox(30,10){\normalsize \@配偶者の扶養義務}}
+% \Put(0,21){\dashbox{.5}(45,7)[l]{\hspace{1mm} \scriptsize 通勤時間
+% \hspace{2mm} \normalsize \@通勤時間}
+% }
+ % \Put(0,21){\dashbox{.5}(45,7)
+ \Put(0,21){\dashbox{.5}(45,7)}
 }
-\SetPos(0,220) {
-	\def\見出しの高さ{5}
-	\Put(76,\見出しの高さ){\makebox(76,\見出しの高さ)[r]{\scriptsize\it \@サイン}}
-}
+% \SetPos(0,220) {
+% 	\def\見出しの高さ{5}
+% 	\Put(76,\見出しの高さ){\makebox(76,\見出しの高さ)[r]{\scriptsize\it \@サイン}}
+%}
 \end{picture}
 }
 %----------------------------------------------------------------------------
