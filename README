@@ -13,5 +13,10 @@ https://www.tamacom.com/rireki-j.html
 私にとって必要な記入内容が、オリジナルのスタイルとは若干違っていたので Fork
 して見様見真似で編集しましたのでここに公開します。
 
+2018-03-25
+A4 サイズの履歴書を要求されたので、A4 用の style ファイルを作成しました。
+\usepackage{rirekiA4}
+でそちらが使われるようになります。その場合 dvipdfmx に渡すサイズも変更したため、
+Makefile も A4 用に書き換えてあります。
+
   -- yamasdais
- 
