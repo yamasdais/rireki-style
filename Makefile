@@ -32,7 +32,8 @@ dvi: $(DVI)
 pdf: $(PDF)
 
 rireki.pdf: rireki.dvi
-	dvipdfmx -p "182mm,257mm" rireki.dvi
+	# dvipdfmx -p "182mm,257mm" rireki.dvi
+	dvipdfmx -p "210mm,297mm" rireki.dvi
 rireki.dvi: rireki.tex rireki.sty
 	platex rireki
 # open コマンドは OSX のみ
