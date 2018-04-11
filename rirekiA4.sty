@@ -332,6 +332,8 @@
 \def\扶養家族数#1{\def\@扶養家族数{#1}}
 \def\配偶者#1{\def\@配偶者{#1}}
 \def\配偶者の扶養義務#1{\def\@配偶者の扶養義務{#1}}
+\def\有{有}
+\def\無{無}
 %
 % 保護者
 %
@@ -372,7 +374,7 @@
 % 大枠
 \SetPos(0,0) {
 	\def\枠の高さ{73.5}
-	\Put(0,-1){\makebox(25,5)[t]{\Large \bf 履\hspace{5mm}歴\hspace{5mm}書}}
+	\Put(0,-1){\makebox(25,5)[t]{\Large 履\hspace{5mm}歴\hspace{5mm}書}}
 	\Put(105,-1){\makebox(25,3)[t]{\today 現在}}
 	\Sub{\写真横}{2}{\w}
 	\Sub{\写真縦}{2}{\h}
@@ -412,12 +414,17 @@
 	}
 	\ifx\@誕生日\empty\else
 		\Put(0,7){\makebox(105.5,7)[c]{\@誕生日 生\@editbuf}}
-	\fi
+ \fi
+ \def\男{男}
+ \def\女{女}
+ \newcommand\circX{}
+ \ifx\@性別\empty\else\ifx\@性別\男 \def\circX{114.7} \else\ifx\@性別\女
+ \def\circX{124} \fi \fi \fi
+ \newcommand\GendCirc{\makebox(6,5.5)[l]{ \circle{5.5} }}
 	\Put(105.5,0){\line(0,-1){8}}
-	\Put(105.5,6){\makebox(12.5,5)[l]{\hspace{2mm}\scriptsize 性別
-       \hspace{3mm} \small \@性別
-    }}
-%	\Put(85.5,14){\makebox(12.5,12)[c]{\small \@性別}}
+	\Put(105.5,6.5){\makebox(12.5,5)[l]{\hspace{2mm}\normalsize※　男 ・ 女
+ }}
+ \ifx\circX\zero\else\Put(\circX,8){\GendCirc}
 }
 \SetPos(0,28.5) {
  \Put(0,0){\line(1,0){\名前欄の幅}}
@@ -502,6 +509,12 @@
 	\Put(0,\枠の高さ){\dashbox{.5}(17,\枠の高さ)}
 	\Add{6}{\履歴リスト１行の高さ}{\offset}
 	\リスト書き出し\@履歴リスト前半\履歴リスト前半行数
+}
+\SetPos(0, 229) {
+ \Put(0,3){\makebox(20,3){\scriptsize 記入上の注意}}
+ \Put(26,3){\makebox(200,3)[l]{\scriptsize 1. 鉛筆以外の黒又は青の筆記具
+ で記入。　　　　2. 数字はアラビア数字で、文字はくずさず正確に書く。}}
+ \Put(26,7){\makebox(200,3)[l]{\scriptsize 3. ※印のところは、該当するものを○で囲む。}}
 }
 \end{picture}
 
@@ -617,8 +630,17 @@
  \if\@扶養家族数\empty\else
  	\Put(60,28){\makebox(45,10)[c]{\normalsize \@扶養家族数 人}}
  \fi
- \Put(107,28){\makebox(30,10){\normalsize \@配偶者}}
- \Put(142,28){\makebox(30,10){\normalsize \@配偶者の扶養義務}}
+ %\Put(107,28){\makebox(30,10){\normalsize \@配偶者}}
+ \newcommand\circX{}
+ \ifx\@配偶者\empty\else\ifx\@配偶者\有\def\circX{119.7}
+ \else\ifx\@配偶者\無\def\circX{128.92}\fi\fi\fi
+ \Put(106,28){\makebox(30,10){\normalsize ※　有 ・ 無}}
+ \Put(\circX,27.3){\makebox(6,5.5)[l]{\circle{5.5}}}
+% \Put(142,28){\makebox(30,10){\normalsize \@配偶者の扶養義務}}
+ \ifx\@配偶者の扶養義務\empty\else\ifx\@配偶者の扶養義務\有\def\circX{155.7}
+ \else\ifx\@配偶者の扶養義務\無\def\circX{165.03}\fi\fi\fi
+ \Put(142,28){\makebox(30,10){\normalsize ※　有 ・ 無}}
+ \Put(\circX,27.3){\makebox(6,5.5)[l]{\circle{5.5}}}
 % \Put(0,21){\dashbox{.5}(45,7)[l]{\hspace{1mm} \scriptsize 通勤時間
 % \hspace{2mm} \normalsize \@通勤時間}
 % }
